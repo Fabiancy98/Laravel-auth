@@ -1,0 +1,9 @@
+enum Sex {
+    Male
+    Female
+}
+
+enum Role {
+    User
+    Admin
+}
