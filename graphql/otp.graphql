@@ -1,0 +1,64 @@
+extend type Mutation {
+    "OTP service is only available to registered users, even before user verification. resend if exists already"
+    createOTP(input: OTPDetails! @spread, resend: Boolean): OTPResponse!
+        @inject(context: "user.id", name: "user_id")
+        # @guard(with: ["sanctum"])
+        @field(resolver: "App\\GraphQL\\Mutations\\OTP@create")
+    resendOTP(input: OTPDetails! @spread, recreate: Boolean): OTPResponse!
+        @inject(context: "user.id", name: "user_id")
+        @field(resolver: "App\\GraphQL\\Mutations\\OTP@resend")
+    "phone or email required, token or type required. NB: token refers to the unique ID associated with the OTP request response, not the otp code itself"
+    verifyOTP(
+        user: OTPUserDetails! @spread
+        otp: Int!
+        type: OTPType @rules(apply: ["required_without:token"])
+        token: String @rules(apply: ["required_without:type"])
+    ): OTPResponse!
+        @inject(context: "user.id", name: "user_id")
+        @field(resolver: "App\\GraphQL\\Mutations\\OTP@verify")
+    # deleteOTP(input: OTPDetails! @spread): OTP @delete @guard(with: ["sanctum"])
+}
+
+input OTPUserDetails {
+    email: String
+        @rules(
+            apply: ["required_without:phone", "email", "exists:users,email"]
+            attribute: "email address"
+        )
+    phone: String
+        @rules(
+            apply: [
+                "required_without:email"
+                "phone"
+                "exists:users,phone->primary"
+            ]
+            attribute: "phone number"
+        )
+}
+input OTPDetails {
+    user: OTPUserDetails! @spread
+    type: OTPType!
+    # "Request identifier, Not to be used for now"
+    # client_req: Int
+    "channel Override to specify which channel to use."
+    channelOverride: [PreferredMeansOfNotification!]
+}
+
+type OTPResponse {
+    status: AuthStatus
+    code: Int!
+    message: String
+    data: OTPData
+}
+
+type OTPData {
+    token: String
+    type: String
+    user: OTPUser
+}
+
+type OTPUser {
+    id: ID
+    email: String
+    phone: Multiple
+}

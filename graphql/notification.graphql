@@ -1,0 +1,33 @@
+extend type Query {
+    "NB: Notification data"
+    notifications(
+        type: String @eq @where(operator: "like")
+        data: String @eq @where(operator: "like")
+        read_at: DateTime @eq @where(operator: "like")
+    ): [Notification!]! @paginate(defaultCount: 10)
+
+    notification(id: ID @eq): Notification @find
+}
+
+extend type Mutation {
+    updateNotification(
+        input: NotificationInput @spread
+    ): Notification! @guard(with: ["sanctum"]) @can(ability: "notification.update") @update
+    deleteNotification(
+        input: NotificationInput! @spread
+    ): Notification @guard(with: ["sanctum"]) @can(ability: "notification.delete") @delete
+}
+
+"Notification details"
+type Notification {
+    id: ID!
+    type: String
+    data: String
+    read_at: DateTime
+}
+input NotificationInput {
+    id: ID!
+    type: String
+    data: String!
+    read_at: DateTime
+}

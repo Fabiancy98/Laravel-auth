@@ -1,3 +1,78 @@
-extend type Mutation {
-    login(email: String!, password: String!, device: String!):String!
+type Data {
+    token: String
+    type: String
+    user: User
 }
+
+type AuthResponse {
+    # the order here is visibility purposes as data might be long
+    status: AuthStatus
+    code: Int!
+    message: String
+    data: Data
+}
+
+input LoginInput {
+    email: String
+        @rules(
+            apply: ["prohibits:phone", "email", "exists:users,email"]
+            attribute: "email address"
+        )
+    password: String! @rules(apply: ["min:8"])
+    device: String! @rules(apply: ["min:3"])
+}
+
+input RegisterInput {
+    first_name: String! @rules(apply: ["min:4"])
+    last_name: String! @rules(apply: ["min:4"])
+    username: String! @rules(apply: ["min:4"])
+    email: String
+        @rules(
+            apply: ["bail", "email", "unique:users,email"]
+            attribute: "email address"
+        )
+    password: String! @rules(apply: ["min:8"]) @hash
+    sex: Sex
+    role: Role
+}
+input ForgotPasswordInput {
+    email: String
+        @rules(
+            apply: ["prohibits:phone", "email", "exists:users,email"]
+            attribute: "email address"
+        )
+    phone: String
+        @rules(
+            apply: ["prohibits:email", "exists:users,phone->primary"]
+            attribute: "phone number"
+        )
+}
+
+input ResetPasswordInput {
+    password: String! @rules(apply: ["confirmed", "min:8"]) @hash
+    password_confirmation: String!
+}
+
+input UpdatePasswordInput {
+    current_password: String! @rules(apply: ["min:8"])
+    password: String! @rules(apply: ["confirmed", "min:8"])
+    password_confirmation: String!
+}
+
+extend type Mutation {
+    login(input: LoginInput! @spread): AuthResponse!
+    logout: AuthResponse @guard(with: ["sanctum"])
+    register(input: RegisterInput! @spread): AuthResponse!
+    resetPassword(input: ResetPasswordInput! @spread): AuthResponse!
+        @guard(with: ["sanctum"])
+        # @can(ability: "reset", model: "App\\Models\\User")
+        @field(resolver: "App\\GraphQL\\Mutations\\ResetPassword")
+    updatePassword(input: UpdatePasswordInput! @spread): AuthResponse!
+        @guard(with: ["sanctum"])
+        @field(
+            resolver: "DanielDeWit\\LighthouseSanctum\\GraphQL\\Mutations\\UpdatePassword"
+        )
+}
+
+
+

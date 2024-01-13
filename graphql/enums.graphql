@@ -7,3 +7,9 @@ enum Role {
     User
     Admin
 }
+
+enum AuthStatus {
+    FAILED
+    SUCCESS
+    ERROR
+}
