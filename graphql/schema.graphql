@@ -5,3 +5,5 @@ scalar DateTime
 #import user.graphql
 #import auth.graphql
 #import enums.graphql
+#import notification.graphql
+#import otp.graphql

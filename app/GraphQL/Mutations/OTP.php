@@ -13,7 +13,7 @@ final class OTP
 {
     use ApiResponse;
 
-    private $channelOverride = [], $response, $token, $type, $typeOrToken, $typeOrTokenValue, $user, $username, $userType;
+    private $response, $token, $type, $typeOrToken, $typeOrTokenValue, $user, $username, $userType;
 
     /**
      * Show the form for creating a new resource.
@@ -22,6 +22,7 @@ final class OTP
      */
     public function create($rootValue, array $args, $context, $resolveInfo)
     {
+        
         $this->construct($args);
         if ($this->user) {
             if ($this->token) {
@@ -114,7 +115,6 @@ final class OTP
                     'user' => [
                         'id' => $this->user->id,
                         'email' => $this->user->email,
-                        'phone' => $this->user->phone,
                     ],
                 ],
                 $otp['message'],
@@ -144,7 +144,6 @@ final class OTP
                     'user' => [
                         'id' => $this->user->id,
                         'email' => $this->user->email,
-                        'phone' => $this->user->phone,
                     ],
                 ],
                 $otp['message'],
@@ -172,9 +171,11 @@ final class OTP
             $this->userType = "email";
             $this->username = $args['email'];
         } else {
-            $this->user = User::where('phone->primary', $args['phone'])->first();
-            $this->userType = "number";
-            $this->username = $args['phone'];
+            // If email is not provided, you might want to handle this case or log a message.
+            // For now, we'll set these values to default values, but you should adapt this part based on your logic.
+            $this->user = null;
+            $this->userType = "unknown";
+            $this->username = "unknown";
         }
         if (isset($args['token'])) {
             $this->typeOrToken = "uuid";
@@ -183,21 +184,20 @@ final class OTP
             $this->typeOrToken = "type";
             $this->typeOrTokenValue = $args['type'];
         }
-        if (isset($args['channelOverride'])) {
-            $this->channelOverride = $args['channelOverride'] ?? [];
-        } else {
-            if (isset($args['email'])) {
-                array_push($this->channelOverride, 'Email');
-            }
-            if (isset($args['phone'])) {
-                array_push($this->channelOverride, 'SMS');
-            }
-        }
         $this->type = $args['type'] ?? "";
-        $this->token = Otps::where([['status', 'new'], [$this->typeOrToken, $this->typeOrTokenValue], [$this->userType, $this->username]])->latest()->first()?->uuid;
-        $this->response = $this->failed();
-    }
 
+            // Check if token exists in Otps table
+        $latestOtp = Otps::where([
+            ['status', 'new'],
+            [$this->typeOrToken, $this->typeOrTokenValue],
+            [$this->userType, $this->username]
+        ])->latest()->first();
+
+        // Set $this->token based on whether the latest OTP exists
+        $this->token = $latestOtp ? $latestOtp->uuid : null;
+        $this->response = $this->failed();
+        
+    }
     /**
      * OTP notification.
      */

@@ -13,3 +13,15 @@ enum AuthStatus {
     SUCCESS
     ERROR
 }
+
+enum OTPType {
+    AccountVerification
+    OrderVerification
+    ResetPassword
+}
+
+enum PreferredMeansOfNotification {
+    Email
+    SMS
+    # Whatsapp
+}

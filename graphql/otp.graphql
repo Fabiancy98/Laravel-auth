@@ -22,26 +22,15 @@ extend type Mutation {
 input OTPUserDetails {
     email: String
         @rules(
-            apply: ["required_without:phone", "email", "exists:users,email"]
+            apply: [ "email", "exists:users,email"]
             attribute: "email address"
         )
-    phone: String
-        @rules(
-            apply: [
-                "required_without:email"
-                "phone"
-                "exists:users,phone->primary"
-            ]
-            attribute: "phone number"
-        )
+
 }
 input OTPDetails {
     user: OTPUserDetails! @spread
     type: OTPType!
-    # "Request identifier, Not to be used for now"
-    # client_req: Int
-    "channel Override to specify which channel to use."
-    channelOverride: [PreferredMeansOfNotification!]
+    # channelOverride: [PreferredMeansOfNotification!]
 }
 
 type OTPResponse {
@@ -60,5 +49,4 @@ type OTPData {
 type OTPUser {
     id: ID
     email: String
-    phone: Multiple
 }
