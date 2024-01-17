@@ -152,8 +152,8 @@
                                                                 style="width:100%;padding-right:0px;padding-left:0px;padding-top:5px;padding-bottom:5px;">
                                                                 <div align="left" class="alignment"
                                                                     style="line-height:10px"><img alt="logo"
-                                                                        src="{{ $message->embed(resource_path('views/notifications/emails/images/logo.png')) }}"
-                                                                        style="display: block; height: auto; border: 0; width: 129px; max-width: 100%;"
+                                                                        src="{{ $message->embed(resource_path('views/notifications/emails/images/Logo.png')) }}"
+                                                                        style="display: block; height: auto; border: 0; width: 3029px; max-width: 100%;"
                                                                         title="logo" width="129" /></div>
                                                             </td>
                                                         </tr>
@@ -289,15 +289,10 @@
                                                                                 {{ $username }},</strong></span></p>
                                                                     <p style="margin: 0; margin-bottom: 2px;"> </p>
                                                                     <p style="margin: 0;"><span
-                                                                            style="color: #384860;">Welcome to
-                                                                            Afrikobo,</span><br /><span
-                                                                            style="color: #384860;">Thanks for your
-                                                                            interest in Afrikobo.
-                                                                            To become a buyer on Afrikobo verify your
-                                                                            email.
-                                                                            Enter the below given OTP(One Time Password)
-                                                                            and complete your registration process with
-                                                                            Afrikobo.</span></p>
+                                                                            style="color: #384860;">Welcome</span><br /><span
+                                                                            style="color: #384860;">Thanks for Registering
+                                                                            Enter the OTP(One Time Password) given below
+                                                                            to verify your account.</span></p>
                                                                     <p style="margin: 0; margin-bottom: 2px;"> </p>
                                                                     <p style="margin: 0; margin-bottom: 2px;"> Your one
                                                                         time passsord (OTP)</p>
@@ -307,236 +302,6 @@
                                                                     <p style="margin: 0; margin-bottom: 2px;"> </p>
                                                                     <p style="margin: 0; margin-bottom: 2px;"> This OTP is valid for 5 mins. Never share this OTP with anyone else.</p>
                                                                     <p style="margin: 0; margin-bottom: 2px;"> </p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                        class="button_block block-3" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad"
-                                                                style="padding-bottom:32px;padding-top:32px;text-align:left;">
-                                                                <div align="left" class="alignment">
-                                                                    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.afrikobo.com" style="height:46px;width:192px;v-text-anchor:middle;" arcsize="9%" stroke="false" fillcolor="#9a1725"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Tahoma, Verdana, sans-serif; font-size:18px"><![endif]--><a
-                                                                        href="https://www.afrikobo.com"
-                                                                        style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#9a1725;border-radius:4px;width:auto;border-top:0px solid transparent;font-weight:400;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Tahoma, Verdana, Segoe, sans-serif;font-size:18px;text-align:center;mso-border-alt:none;word-break:keep-all;"
-                                                                        target="_blank"><span
-                                                                            style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span
-                                                                                dir="ltr"
-                                                                                style="word-break: break-word; line-height: 36px;">Confirm
-                                                                                Account</span></span></a>
-                                                                    <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                        class="paragraph_block block-4" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad">
-                                                                <div
-                                                                    style="color:#384860;direction:ltr;font-family:Tahoma, Verdana, Segoe, sans-serif;font-size:18px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:27px;">
-                                                                    <p style="margin: 0; margin-bottom: 16px;"><span
-                                                                            style="color: #384860;"><strong>Don't have
-                                                                                an account yet, click
-                                                                                here</strong> </span></p>
-                                                                    <p style="margin: 0; margin-bottom: 16px;"><span
-                                                                            style="color: #2969ff;">XXXXXXXXXXXX/XXXXXXXXX</span>
-                                                                    </p>
-                                                                    <p style="margin: 0; margin-bottom: 16px;">
-                                                                        <strong><span
-                                                                                style="color: #384860;">Regards,</span></strong><br /><strong><span
-                                                                                style="color: #384860;">Afrikobo
-                                                                                Team.</span></strong>
-                                                                    </p>
-                                                                    <p style="margin: 0;"> </p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5"
-                        role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0"
-                                        class="row-content stack" role="presentation"
-                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 500px;"
-                                        width="500">
-                                        <tbody>
-                                            <tr>
-                                                <td class="column column-1"
-                                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-left: 40px; padding-right: 40px; vertical-align: top; padding-top: 6px; padding-bottom: 6px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                                    width="100%">
-                                                    <div class="spacer_block"
-                                                        style="height:12px;line-height:12px;font-size:1px;"> </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6"
-                        role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0"
-                                        class="row-content stack" role="presentation"
-                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6dccc; color: #000000; width: 500px;"
-                                        width="500">
-                                        <tbody>
-                                            <tr>
-                                                <td class="column column-1"
-                                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-left: 40px; padding-right: 40px; vertical-align: top; padding-top: 24px; padding-bottom: 24px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                                    width="100%">
-                                                    <table border="0" cellpadding="10" cellspacing="0"
-                                                        class="text_block block-1" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad">
-                                                                <div style="font-family: sans-serif">
-                                                                    <div class=""
-                                                                        style="font-size: 12px; font-family: Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-                                                                        <p
-                                                                            style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
-                                                                            <span
-                                                                                style="font-size:16px;color:#121a26;"><strong>Need
-                                                                                    Help?</strong></span>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <table border="0" cellpadding="10" cellspacing="0"
-                                                        class="text_block block-2" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad">
-                                                                <div style="font-family: sans-serif">
-                                                                    <div class=""
-                                                                        style="font-size: 12px; font-family: Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-                                                                        <p
-                                                                            style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
-                                                                            <a href="https://www.afrikobo.com/contact"
-                                                                                rel="noopener"
-                                                                                style="text-decoration: underline;"
-                                                                                target="_blank"><span
-                                                                                    style="color:#ee4037;text-decoration:underline;">We’re
-                                                                                    here, ready to talk</span></a>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7"
-                        role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0"
-                                        class="row-content stack" role="presentation"
-                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 500px;"
-                                        width="500">
-                                        <tbody>
-                                            <tr>
-                                                <td class="column column-1"
-                                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                                    width="100%">
-                                                    <div class="spacer_block"
-                                                        style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8"
-                        role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0"
-                                        class="row-content stack" role="presentation"
-                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 500px;"
-                                        width="500">
-                                        <tbody>
-                                            <tr>
-                                                <td class="column column-1"
-                                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-left: 08px; vertical-align: top; padding-top: 16px; padding-bottom: 16px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                                    width="100%">
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                        class="paragraph_block block-1" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad" style="padding-bottom:24px;">
-                                                                <div
-                                                                    style="color:#9d9d9d;direction:ltr;font-family:Tahoma, Verdana, Segoe, sans-serif;font-size:14px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
-                                                                    <p style="margin: 0;"><a
-                                                                            href="https://www.afrikobo.com"
-                                                                            rel="noopener"
-                                                                            style="text-decoration: underline; color: #9d9d9d;"
-                                                                            target="_blank">Buyer</a> - <a
-                                                                            href="https://www.afrikobo.com"
-                                                                            rel="noopener"
-                                                                            style="text-decoration: underline; color: #9d9d9d;"
-                                                                            target="_blank">Seller</a> - <a
-                                                                            href="https://www.afrikobo.com"
-                                                                            rel="noopener"
-                                                                            style="text-decoration: underline; color: #9d9d9d;"
-                                                                            target="_blank">Average Pricing</a></p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                        class="paragraph_block block-2" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad">
-                                                                <div
-                                                                    style="color:#9d9d9d;direction:ltr;font-family:Tahoma, Verdana, Segoe, sans-serif;font-size:14px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
-                                                                    <p style="margin: 0;">You received this email
-                                                                        because you just signed up for a new account. If
-                                                                        it looks weird, <a
-                                                                            href="https://www.afrikobo.com"
-                                                                            rel="noopener"
-                                                                            style="text-decoration: underline; color: #9d9d9d;"
-                                                                            target="_blank">view it in your
-                                                                            browser</a>.<br /><br />If these emails get
-                                                                        annoying, please feel free to
-                                                                        unsubscribe <br /><br />44 De Haro Street, Suite
-                                                                        199, San Francisco, CA 94108</p>
                                                                 </div>
                                                             </td>
                                                         </tr>

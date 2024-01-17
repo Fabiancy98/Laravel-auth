@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\User;
-use App\Services\Notification\NotificationService;
 use App\Traits\ApiResponse;
 use Carbon\Carbon;
 use Ferdous\OtpValidator\Models\Otps;
@@ -107,7 +106,7 @@ final class OTP
      */
     private function createOTP()
     {
-        $otp = createOTP($this->user, $this->type);
+        $otp = createOTP($this->type, $this->user);
         if ($otp['code'] === 201) {
             $this->response = $this->success(
                 [
@@ -120,7 +119,7 @@ final class OTP
                 $otp['message'],
                 $otp['code']
             );
-            $this->notify();
+            // $this->notify();
         } else {
             $this->response = $this->failed(
                 [],
@@ -149,7 +148,6 @@ final class OTP
                 $otp['message'],
                 $otp['code']
             );
-            $this->notify();
         } else {
             $this->response = $this->failed(
                 [],
@@ -197,16 +195,5 @@ final class OTP
         $this->token = $latestOtp ? $latestOtp->uuid : null;
         $this->response = $this->failed();
         
-    }
-    /**
-     * OTP notification.
-     */
-    public function notify()
-    {
-        if ($this->type == "AccountVerification") {
-            (new NotificationService($this->user))->accountVerificationNotification();
-        } elseif ($this->type === "ResetPassword") {
-            (new NotificationService($this->user))->passwordResetNotification();
-        }
     }
 }

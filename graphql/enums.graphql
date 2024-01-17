@@ -6,6 +6,7 @@ enum Sex {
 enum Role {
     User
     Admin
+    SuperAdmin
 }
 
 enum AuthStatus {

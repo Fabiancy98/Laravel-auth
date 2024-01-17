@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('verified')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role', ['User', 'Admin'])->default('User');
+            $table->enum('role', ['User', 'Admin', 'SuperAdmin'])->default('User');
             $table->timestamps();
             $table->softDeletes();
         });

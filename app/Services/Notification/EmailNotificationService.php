@@ -25,7 +25,7 @@ class EmailNotificationService implements NotificationsInterface
                 [
                     "Account Verification", "noreply@moses.com", "notifications.emails.accountVerification",
                     [
-                        'username' => $this->user->first_name,
+                        'username' => $this->user->username,
                         'code' => $code,
                         'link' => OTPLink($this->user->email, 'Email', $code, $token, 'AccountVerification'),
                     ],

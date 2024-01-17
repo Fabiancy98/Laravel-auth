@@ -4,6 +4,7 @@ use App\Models\User;
 use Ferdous\OtpValidator\Object\OtpRequestObject;
 use Ferdous\OtpValidator\Object\OtpValidateRequestObject;
 use Ferdous\OtpValidator\OtpValidator;
+use App\Services\Notification\NotificationService;
 
 
 
@@ -20,6 +21,21 @@ if (!function_exists('unreadNotes')) {
         ) ?: "";
     }
 }
+    /**
+     * OTP notification.
+     */
+
+if (!function_exists('notify')) {
+
+    function notify(string $type, User $user)
+    {
+        if ($type == "AccountVerification") {
+            (new NotificationService($user))->accountVerificationNotification();
+        } elseif ($type === "ResetPassword") {
+            (new NotificationService($user))->passwordResetNotification();
+        }
+    }
+}
 
 
 if (!function_exists('createOTP')) {
@@ -32,8 +48,9 @@ if (!function_exists('createOTP')) {
         $otp = [];
         try {
             $otp = OtpValidator::requestOtp(
-                new OtpRequestObject($user->id, $type, $user->email ?? 'fabiancy25@gmail.com')
+                new OtpRequestObject($user->id, $type, $user->phone ?? null, $user->email ?? null)
             );
+            notify($type, $user);
         } catch (\Exception $e) {
             \Log::error($e);
         }
@@ -44,6 +61,7 @@ if (!function_exists('resendOTP')) {
     function resendOTP($uniqueId)
     {
         return OtpValidator::resendOtp($uniqueId);
+        // notify($type, $user);
     }
 }
 if (!function_exists('verifyOTP')) {

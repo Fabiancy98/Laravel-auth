@@ -26,7 +26,6 @@ class User extends Authenticatable implements HasApiTokensContract
         'username',
         'sex',
         'email',
-        'password',
         'role',
     ];
 
