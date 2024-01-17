@@ -16,7 +16,6 @@ enum AuthStatus {
 
 enum OTPType {
     AccountVerification
-    OrderVerification
     ResetPassword
 }
 

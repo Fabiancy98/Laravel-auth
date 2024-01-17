@@ -75,4 +75,6 @@ extend type Mutation {
 }
 
 
-
+extend type Subscription {
+    userCreated: User
+}

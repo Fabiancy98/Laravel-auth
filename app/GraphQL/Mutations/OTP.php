@@ -204,11 +204,9 @@ final class OTP
     public function notify()
     {
         if ($this->type == "AccountVerification") {
-            (new NotificationService($this->user, $this->channelOverride))->accountVerificationNotification();
+            (new NotificationService($this->user))->accountVerificationNotification();
         } elseif ($this->type === "ResetPassword") {
-            (new NotificationService($this->user, $this->channelOverride))->passwordResetNotification();
-        } elseif ($this->type === "OrderVerification") {
-            // (new NotificationService($this->user,$this->channelOverride))->OrderVerificationNotification();
+            (new NotificationService($this->user))->passwordResetNotification();
         }
     }
 }

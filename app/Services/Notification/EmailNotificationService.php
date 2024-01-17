@@ -23,7 +23,7 @@ class EmailNotificationService implements NotificationsInterface
             $token = $otp->uuid;
             \Mail::to($this->user->email)->send(new SendMail(
                 [
-                    "Account Verification", "info@afrikobo.com", "notifications.emails.accountVerification",
+                    "Account Verification", "noreply@moses.com", "notifications.emails.accountVerification",
                     [
                         'username' => $this->user->first_name,
                         'code' => $code,
@@ -40,7 +40,7 @@ class EmailNotificationService implements NotificationsInterface
             $code = $otp->otp;
             $token = $otp->uuid;
             \Mail::to($this->user->email)->queue(new SendMail([
-                "Password Reset", "info@afrikobo.com", "notifications.emails.forgotPassword",
+                "Password Reset", "noreply@moses.com", "notifications.emails.forgotPassword",
                 [
                     'username' => $this->user->first_name,
                     'code' => $code,

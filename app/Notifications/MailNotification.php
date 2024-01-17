@@ -37,7 +37,6 @@ class MailNotification extends Notification implements ShouldQueue, ShouldBeUniq
     {
         return (new MailMessage)
             ->subject('Mail Notification')
-            // ->from('sender@example.com', 'Sender')
             ->view('notifications.MailNotification', [])
         ;
     }

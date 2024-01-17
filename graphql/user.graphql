@@ -34,7 +34,7 @@ extend type Mutation {
         sex: Sex!
         role: Role!
         password: String! @trim @rules(apply: ["min:8"]) @hash
-    ): User @create
+    ): User @create @broadcast(subscription: "userCreated")
 
     "Update user details"
     updateUser(
