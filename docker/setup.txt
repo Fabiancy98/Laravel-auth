@@ -1,0 +1,428 @@
+
+
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-22-04
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-22-04
+
+
+https://onebite.dev/how-to-install-meilisearch-in-ubuntu-for-production/
+
+
+https://lindevs.com/install-meilisearch-on-ubuntu
+
+
+https://www.digitalocean.com/community/tutorials/how-to-deploy-and-configure-meilisearch-on-ubuntu-22-04
+
+
+
+
+
+hostname -I
+
+sudo add-apt-repository ppa:ondrej/php
+# sudo add-apt-repository --remove ppa:ondrej/php
+sudo curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh | sudo bash nodesource_setup.sh
+sudo apt update && sudo apt upgrade
+sudo apt install  ca-certificates apt-transport-https software-properties-common mysql-server redis-server supervisor libcap2-bin libpng-dev dnsutils unzip vim zsh git nodejs -y
+sudo corepack enable && corepack prepare pnpm@latest --activate
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+vim  ~/.oh-my-zsh/custom/omz.zsh
+
+
+
+# sudo apt install php-cli  php-fpm php-mysql php-imap php-redis php-snmp php-gd php-memcached php-zip php-curl php-mbstring php-xml php-bcmath libapache2-mod-php libapache2-mod-fcgid
+# sudo apt install -y php8.2-cli php8.2-dev php8.2-common php8.2-fpm php8.2-mysql php8.2-imap php8.2-redis php8.2-snmp php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath php8.2-soap php8.2-readline php8.2-ldap php8.2-pcov php8.2-xdebug nginx
+
+
+sudo apt install -y php8.2-cli php8.2-dev php8.2-common php8.2-fpm php8.2-mysql php8.2-imap php8.2-redis php8.2-snmp php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath php8.2-soap php8.2-readline php8.2-ldap php8.2-pcov php8.2-xdebug libapache2-mod-php libapache2-mod-fcgid
+sudo a2enmod proxy_fcgi setenvif && sudo a2enconf php8.2-fpm
+
+
+
+sudo php -r "readfile('https://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/bin/ --filename=composer
+sudo apt update && sudo apt autoremove -y && sudo apt clean
+sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+curl -L https://install.meilisearch.com | sh && sudo mv ./meilisearch /usr/bin
+
+
+git config --global user.name kehinde.ehinmitan
+git config --global user.email kehinde.ehinmitan@afrikobo.com
+git config --global credential.${remote}.username kehinde.ehinmitan@afrikobo.com
+# git config --global user.name Brotherbond
+# git config --global user.email ehinmitankehinde@gmail.com
+# git config --global credential.${remote}.username Brotherbond
+git config --global credential.helper store
+
+
+sudo mkdir /var/www/afrikobo  && cd /var/www/afrikobo
+sudo chown -R $USER:$USER /var/www/afrikobo
+sudo chmod -R 755 /var/www/afrikobo
+git clone https://afrikobosystems@dev.azure.com/afrikobosystems/Afrikobo/_git/core-api
+git clone https://afrikobosystems@dev.azure.com/afrikobosystems/Afrikobo/_git/core-www
+
+cxfuc5eag6o44tgnrswfaty7yk64fmlixrc2zgpj7wmcbtup27ma
+
+cd /var/www/afrikobo/core-www && pnpm i
+cd /var/www/afrikobo/core-api
+composer install && chmod -R 777 ./storage ./bootstrap/cache
+sudo vim .env
+
+APP_NAME=Afrikobo
+APP_ENV=local
+APP_KEY=base64:JyBi1s1pEXsARqwZBkJBx5mnXSXfgG6RsaGbcmxg854=
+APP_DEBUG=true
+APP_URL=http://afrikobo.test
+APP_PORT=80
+FRONTEND_PORT=3000
+GRAPHIQL_ENABLED=true
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+# DB_CONNECTION=sqlsrv
+# DB_HOST=127.0.0.1
+# DB_PORT=1433
+# DATABASE_URL=driver://username:password@host:port/database?options
+FORWARD_DB_PORT=3307
+DB_DATABASE=afrikobo
+DB_USERNAME=root
+DB_PASSWORD=root
+
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=redis
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=database
+SESSION_DRIVER=redis
+SESSION_LIFETIME=120
+
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_DRIVER=smtp
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=434dd6cf8da28f
+MAIL_PASSWORD=d1afb0d581bd2c
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="info@afrikobo.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+# MAIL_HOST=smtp.mailgun.org
+# MAIL_PORT=587
+# MAIL_ENCRYPTION=ssl
+# MAIL_USERNAME=postmaster@mg.afrikobo.com
+# MAIL_PASSWORD=0f2bde58d33c06654bb846ce6c489e65-69210cfc-db3f385f
+TWILIO_AUTH_TOKEN=0d10c5dccf258b2d0bf28a6d5047afe7
+TWILIO_VERIFY_SID=AC382d85786e8917c7707f3decf35a2f5a
+VALID_TWILLO_NUMBER=+19148772529
+TWILIO_SID=AC382d85786e8917c7707f3decf35a2f5a
+#TWILIO testing
+# TWILIO_AUTH_TOKEN=58465d1fbccb145db7f9d77446ce4e63
+# TWILIO_VERIFY_SID=AC955281b96721ae5dddd728bbc3a70977
+# VALID_TWILLO_NUMBER=+19148772529
+# TWILIO_SID=AC955281b96721ae5dddd728bbc3a70977
+# TWILIO_AUTH_TOKEN=15b80038e46d55521c7cd12b15e30c9b
+# TWILIO_VERIFY_SID=AC83f29c8e8d0ec493992bd6ca50ac6351
+# VALID_TWILLO_NUMBER=+19148772529
+# TWILIO_SID=AC83f29c8e8d0ec493992bd6ca50ac6351
+
+
+
+SUPPORT_EMAIL=support@afrikobo.com
+
+
+# Basic OTP Configs
+OTP_SERVICE='enabled'
+OTP_TIMEOUT=120
+OTP_DIGIT=6
+OTP_RESEND_SERVICE='enabled'
+OTP_MAX_RESEND=9
+OTP_MAX_RETRY=3
+# Company and Service
+OTP_SERVICE_NAME='otp'
+OTP_COMPANY_NAME='toto'
+# OTP via Email / SMS
+OTP_SEND_BY_EMAIL=1
+OTP_SEND_BY_SMS=0
+# Email Configurations
+OTP_EMAIL_FROM="${SUPPORT_EMAIL}"
+OTP_EMAIL_FROM_NAME="${APP_NAME}"
+OTP_EMAIL_SUBJECT='OTP Verification'
+
+# SMS Configurations
+OTP_SMSC_URL='https://api.twilio.com/2010-04-01/Accounts/'
+OTP_SMSC_METHOD='post'
+OTP_COUNTRY_CODE='234'
+OTP_SMSC_OVER_JSON=0
+OTP_SMSC_PARAM_TO_NAME='to'
+OTP_SMSC_PARAM_MSG_NAME='msg'
+OTP_SMSC_USER="${TWILIO_SID}"
+OTP_SMSC_PASS="${TWILIO_AUTH_TOKEN}"
+
+
+
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME=https
+PUSHER_APP_CLUSTER=mt1
+
+VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+VITE_PUSHER_HOST="${PUSHER_HOST}"
+VITE_PUSHER_PORT="${PUSHER_PORT}"
+VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
+VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+
+SCOUT_DRIVER=meilisearch
+SCOUT_QUEUE=true
+#MEILISEARCH_HOST=http://meilisearch:7700
+MEILISEARCH_HOST=http://127.0.0.1:7700
+MEILISEARCH_KEY=avq7unE3LcIdl5_zRhcQaajloOP8Q66xUFkusVu5Fl4
+
+
+FACEBOOK_CLIENT_ID=8819326761426161
+FACEBOOK_CLIENT_SECRET=327aa1ff00db33d1429448ccc311ea3d
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_AUTH_URL=
+
+AZURE_STORAGE_NAME="afrikobodata02"
+AZURE_STORAGE_KEY="sLSiPO5dhx6GJ6ulJ8UQcPoJsWdZlvsZmFwd4YgknypUVWfUcJli0B1kf8eiAavwdPy5WMUUapNN+AStfq0yLw=="
+AZURE_STORAGE_URL="https://afrikobodata02.blob.core.windows.net/"
+AZURE_STORAGE_CONTAINER="assets"
+AZURE_BASE="${AZURE_STORAGE_URL}${AZURE_STORAGE_CONTAINER}/"
+# AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=afrikobodata02;AccountKey=sLSiPO5dhx6GJ6ulJ8UQcPoJsWdZlvsZmFwd4YgknypUVWfUcJli0B1kf8eiAavwdPy5WMUUapNN+AStfq0yLw==;EndpointSuffix=core.windows.net"
+# AZURE_STORAGE_SAS_TOKEN="sp=racwdli&st=2022-12-07T12:02:07Z&se=2022-12-07T20:02:07Z&sip=105.112.59.137&sv=2021-06-08&sr=c&sig=wkOIArwxx2pd63c1JwodZ8pDQve%2BIvJqnXZzZTOU0JA%3D"
+# AZURE_STORAGE_ENDPOINT=
+
+
+# Add string test to ensure empty string are not sent.
+#run event:cache in production to avoid scanning @ every request
+# remove /afri-clear from routes once testing is done
+
+
+# /usr/local/bin/meilisearch --db-path ./meilifiles --http-addr 'localhost:7700'
+# curl -X POST --data-binary @movies.json     -H 'Authorization: Bearer password'     -H 'Content-Type: application/json'     http://0.0.0.0:7700/indexes/movies/documents
+# curl -H 'Authorization: Bearer password' http://0.0.0.0:7700/indexes/movies/search?q=spiderman
+
+
+
+
+
+sudo vim /etc/systemd/system/meilisearch.service
+
+[Unit]
+Description=MeiliSearch
+After=network.target
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/meilisearch --http-addr 0.0.0.0:7700 --env production --master-key avq7unE3LcIdl5_zRhcQaajloOP8Q66xUFkusVu5Fl4
+Restart=always
+
+
+[Install]
+WantedBy=default.target
+
+
+meilisearch --version
+
+
+
+
+sudo mysql
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'root';
+CREATE database afrikobo;
+# CREATE USER 'afrikobo'@'localhost' IDENTIFIED BY 'root@root';
+# GRANT ALL ON afrikobo.* to 'afrikobo'@'localhost';
+FLUSH PRIVILEGES;
+exit;
+
+# sudo mysql_secure_installation
+
+# sudo cp  /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/afrikobo.com.conf
+sudo vim /etc/apache2/sites-available/afrikobo.com.conf
+
+
+<VirtualHost *:80>
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/afrikobo.com/public
+
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory /var/www/afrikobo.com >
+                AllowOverride All
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+
+sudo a2ensite afrikobo.com.conf
+sudo a2dissite 000-default.conf
+
+
+
+# sudo cp  /etc/nginx/sites-available/default /etc/nginx/sites-available/afrikobo.com
+sudo vim /etc/nginx/sites-available/afrikobo.com
+
+
+server {
+
+       listen 8080;
+       listen [::]:8080;
+       root /var/www/afrikobo/core-api/public;
+
+       index index.php index.html index.htm;
+
+       server_name afrikobo.test;
+
+
+       port_in_redirect off;
+       # set client body size to 32M #
+       client_max_body_size 32M;
+
+       # Disable .git directory
+       location ~ /\.git {
+              deny all;
+              access_log off;
+              log_not_found off;
+       }
+
+       location / {
+               try_files $uri $uri/ /index.php?$query_string;
+       }
+
+       location ~*  \.(jpg|jpeg|png|gif)$1 {
+               expires 365d;
+       }
+
+       location ~*  \.(ico|css|js)$ {
+               expires 365d;
+       }
+
+       location ~ \.php$ {
+               include snippets/fastcgi-php.conf;
+               fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+       }
+
+       location ~ /\.ht {
+               deny all;
+       }
+}
+
+
+sudo ln -s /etc/nginx/sites-available/afrikobo.com /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default
+# sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+
+sudo apt update -y && sudo apt -y autoremove
+sudo nginx -t
+
+
+
+
+sudo vim /etc/supervisor/conf.d/supervisord.conf
+
+
+[program:client]
+directory=/var/www/afrikobo/core-www
+user=root
+command=pnpm dev --port 80
+process_name=%(program_name)s_%(process_num)02d
+autostart=true
+autorestart=true
+# redirect_stderr=true
+numprocs=1
+stdout_logfile_maxbytes=0
+stderr_logfile_maxbytes=0
+
+[program:queue]
+directory=/var/www/afrikobo/core-api
+command=php artisan queue:listen
+process_name=%(program_name)s_%(process_num)02d
+autostart=true
+autorestart=true
+user=root
+# redirect_stderr=true
+numprocs=1
+stdout_logfile_maxbytes=0
+stderr_logfile_maxbytes=0
+
+
+
+sudo systemctl enable meilisearch
+sudo supervisorctl reread && sudo supervisorctl update
+sudo systemctl restart supervisor
+sudo systemctl daemon-reload
+sudo systemctl reset-failed
+sudo systemctl restart apache2
+sudo systemctl restart nginx
+sudo systemctl restart redis.service
+sudo systemctl restart mysql.service
+sudo systemctl status meilisearch
+sudo systemctl status supervisor
+sudo systemctl status apache2
+sudo systemctl status nginx
+sudo systemctl status redis
+sudo supervisorctl
+
+# sudo apt install php8.0-{bz2,curl,intl,mysql,readline,xml} && sudo apt purge '^php7.4.*'
+
+
+
+
+
+
+
+rm .env && touch .env
+
+for var in $(compgen -v APPSETTING_); do
+    key="${var#APPSETTING_}"
+    if [[ $key == NEXT* ]]; then
+        echo "$key=${!var}" >> .env
+    fi
+done
+
+node_modules/next/dist/bin/next start

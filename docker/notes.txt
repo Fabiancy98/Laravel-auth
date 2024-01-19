@@ -1,0 +1,282 @@
+
+
+
+Rename table in source db to price_desks
+
+change id => another name
+
+price_desk_categories_id bigInt default 1
+
+rating double 8,2 default 0.00
+
+
+
+
+Category mapping
+
+product comes with id to identify when updated
+
+identify using SKU source and ID combo
+
+
+
+
+Schema::disableForeignKeyConstraints();
+Schema::enableForeignKeyConstraints();
+DB::table('example_table')->truncate();
+
+
+
+
+
+`q`, `offset`, `limit`, `page`, `hitsPerPage`, `attributesToRetrieve`, `attributesToCrop`, `cropLength`, `attributesToHighlight`, `showMatchesPosition`, `filter`, `sort`, `facets`, `highlightPreTag`, `highlightPostTag`, `cropMarker`, `matchingStrategy`",
+
+
+
+
+
+
+
+
+use MeiliSearch\Client;
+
+// Create a MeiliSearch client instance
+$client = new Client('http://meilisearch:7700', '2Y-tYFRZwqci9zH8iTlA-GRzA3oEqRhYe8i3SXyRYbQ');
+
+// Create an index named 'price_desks'
+$index = $client->createIndex('price_desks');
+
+# mysqldump n artisan
+php artisan db:dump --table=price_desks --output=storage/app/dump.sql
+
+$db = DB::connection('mysql2')->table(env('DUMP_DB_TABLE'))->get();
+
+    Spatie\DbDumper\Databases\MySql::create()->
+    setHost(env('DUMP_DB_HOST'))->
+    setDbName(env('DUMP_DB_DATABASE'))->
+    setUserName(env('DUMP_DB_USERNAME'))->
+    setPassword(env('DUMP_DB_PASSWORD'))->
+    includeTables('bronze')->
+    dumpToFile(storage_path('app/dump.sql'));
+
+<?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
+// Specify the table name
+$tableName = 'price_desks';
+
+// Get the table data as an array
+$tableData = DB::table($tableName)->get()->toArray();
+
+// Convert the array to SQL insert statements
+$sqlStatements = [];
+foreach ($tableData as $row) {
+    $values = [];
+    foreach ($row as $column => $value) {
+        $values[] = is_string($value) ? "'$value'" : $value;
+    }
+    $row= json_decode(json_encode($row), true);
+    $sqlStatements[] = "INSERT INTO $tableName (" . implode(', ', array_keys($row)) . ") VALUES (" . implode(', ', $values) . ");";
+}
+
+// Generate the SQL file content
+$sqlContent = implode("\n", $sqlStatements);
+
+// Specify the file path and name
+$filePath = storage_path('app/dump.sql');
+
+// Write the SQL content to the file
+File::put($filePath, $sqlContent);
+
+// Output a success message
+echo "Table '$tableName' dumped successfully to $filePath";
+
+
+
+
+
+
+if category 5 exist
+else if  4
+else if  3
+else if  2
+else if  1
+
+
+cat mapping
+Add weight column
+dimension(size) column
+color
+
+Make weight info using search 4rm other columns
+calculate avg price based on category then weight info
+
+
+join row content then extract weight column
+
+
+
+
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class PriceDeskSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $time_limit = ini_get('max_execution_time');
+        $memory_limit = ini_get('memory_limit');
+
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+
+        $batchSize = 5000;
+        \DB::connection('mysql2')->table(env('DUMP_DB_TABLE'))->orderBy('id')->chunk($batchSize, function ($rows) {
+            // Process each batch of rows
+            $sql = json_decode(json_encode($rows), true);
+            foreach ($sql as $item) {
+                $price_desk_category_id = 1;
+                # Category mapping
+                # extract color weight sizes
+                #calculate avg price for product
+                #Update avg price for any price change
+                \DB::table('price_desks')->insert([...$item, 'price_desk_category_id' => $price_desk_category_id]);
+            }
+        });
+
+        set_time_limit($time_limit);
+        ini_set('memory_limit', $memory_limit);
+    }
+}
+
+
+
+php -r  "set_time_limit(0);"
+php -r "ini_set('memory_limit', '-1');"
+php -r  "set_time_limit(30);"
+php -r "ini_set('memory_limit', '128M');"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TWILIO_AUTH_TOKEN=0d10c5dccf258b2d0bf28a6d5047afe7
+TWILIO_VERIFY_SID=AC382d85786e8917c7707f3decf35a2f5a
+VALID_TWILLO_NUMBER=+19148772529
+TWILIO_SID=AC382d85786e8917c7707f3decf35a2f5a
+
+# Basic OTP Configs
+OTP_SERVICE='enabled'
+OTP_TIMEOUT=120
+OTP_DIGIT=6
+OTP_RESEND_SERVICE='enabled'
+OTP_MAX_RESEND=30
+OTP_MAX_RETRY=30
+# Company and Service
+OTP_SERVICE_NAME="${APP_NAME}"
+OTP_COMPANY_NAME="${APP_NAME}"
+# OTP via Email / SMS
+# NB: OTP sending is being handled internally hence 0 for both
+OTP_SEND_BY_EMAIL=0
+OTP_SEND_BY_SMS=0
+# Email Configurations
+OTP_EMAIL_FROM="${SUPPORT_EMAIL}"
+OTP_EMAIL_FROM_NAME="${APP_NAME}"
+OTP_EMAIL_SUBJECT='OTP Verification'
+
+# SMS Configurations
+OTP_SMSC_URL='https://api.twilio.com/2010-04-01/Accounts/'
+OTP_SMSC_METHOD='post'
+OTP_COUNTRY_CODE='234'
+OTP_SMSC_OVER_JSON=0
+OTP_SMSC_PARAM_TO_NAME='to'
+OTP_SMSC_PARAM_MSG_NAME='msg'
+OTP_SMSC_USER="${TWILIO_SID}"
+OTP_SMSC_PASS="${TWILIO_AUTH_TOKEN}"
+
+
+
+FACEBOOK_CLIENT_ID=8819326761426161
+FACEBOOK_CLIENT_SECRET=327aa1ff00db33d1429448ccc311ea3d
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_AUTH_URL=
+
+AZURE_STORAGE_NAME="afrikobodata02"
+AZURE_STORAGE_KEY="sLSiPO5dhx6GJ6ulJ8UQcPoJsWdZlvsZmFwd4YgknypUVWfUcJli0B1kf8eiAavwdPy5WMUUapNN+AStfq0yLw=="
+AZURE_STORAGE_URL="https://afrikobodata02.blob.core.windows.net/"
+AZURE_STORAGE_CONTAINER="assets"
+AZURE_BASE="${AZURE_STORAGE_URL}${AZURE_STORAGE_CONTAINER}/"
+
+
+
+
+
+rm database/migrations/2023_07_12_151122_create_failed_jobs_table.php # where does it cum from
+
+
+
+rm database/seeders/PriceDeskSeeder.php
+vim database/seeders/PriceDeskSeeder.php
+
+
+php artisan migrate:fresh
+php artisan db:seed --class=PriceDeskCategorySeeder
+php artisan db:seed --class=PriceDeskSeeder
+
+
+php artisan key:generate
+php artisan schedule:clear-cache
+php artisan view:clear
+php artisan route:clear
+php artisan event:clear
+php artisan optimize:clear
+php artisan auth:clear-resets
+php artisan queue:clear
+php artisan config:clear
+php artisan cache:clear #sudo
+
+php artisan migrate:fresh --seed --force
+
+
+php artisan scout:flush App\\Models\\Product
+php artisan scout:flush App\\Models\\Service
+php artisan scout:flush App\\Models\\PriceDesk
+php artisan scout:flush App\\Models\\Category
+php artisan scout:flush App\\Models\\PriceDeskCategory
+php artisan scout:flush App\\Models\\ServiceCategory
+php artisan scout:import App\\Models\\Product
+php artisan scout:import App\\Models\\Service
+php artisan scout:import App\\Models\\PriceDesk
+php artisan scout:import App\\Models\\Category
+php artisan scout:import App\\Models\\PriceDeskCategory
+php artisan scout:import App\\Models\\ServiceCategory

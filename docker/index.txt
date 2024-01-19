@@ -1,0 +1,43 @@
+import arr from 'afrikobo.json'
+useEffect(() => {
+    let sql = "INSERT INTO `price_desk_categories1` (`name`, `parent_id`, `description`, `status`) VALUES ";
+    arr.forEach((e, i) => {
+        sql += `("${e.title}",NULL,"${e.description}",${e?.active ?? false}),`
+        e.sub.forEach((e, j) => {
+            sql += `("${e.title}",${i + 1},"${e.description}",${e?.active ?? false}),`
+            e.sub.forEach((e, k) => {
+                sql += `("${e.title}",${j + 1},"${e.description}",${e?.active ?? false}),`
+                e.sub.forEach((e, l) => {
+                    sql += `("${e.title}",${k + 1},"${e.description}",${e?.active ?? false}),`
+                    e.sub.forEach((e, m) => {
+                        sql += `("${e.title}",${l + 1},"${e.description}",${e?.active ?? false}),`
+                    })
+                })
+            })
+        })
+    })
+
+    const blob = new Blob([sql], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.download = "user.sql";
+    link.href = url;
+    link.click();
+
+}, [])
+
+
+
+function flattenNestedArray(arr) {
+let flattenedArray = [];
+
+  arr.forEach((element) => {
+    if (Array.isArray(element)) {
+      flattenedArray = flattenedArray.concat(flattenNestedArray(element));
+    } else {
+      flattenedArray.push(element);
+    }
+  });
+
+  return flattenedArray;
+}
